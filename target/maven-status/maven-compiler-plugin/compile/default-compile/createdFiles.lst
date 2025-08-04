@@ -1,0 +1,16 @@
+com/whatsapp/dto/LoginDto.class
+com/whatsapp/dto/MessageDto.class
+com/whatsapp/dto/UserRegistrationDto.class
+com/whatsapp/entity/Message.class
+com/whatsapp/entity/User.class
+com/whatsapp/repository/MessageRepository.class
+com/whatsapp/entity/User$UserStatus.class
+com/whatsapp/entity/Message$MessageType.class
+com/whatsapp/repository/UserRepository.class
+com/whatsapp/entity/Message$MessageStatus.class
+com/whatsapp/entity/Group.class
+com/whatsapp/repository/ChatRepository.class
+com/whatsapp/WhatsAppApplication.class
+com/whatsapp/dto/UserDto.class
+com/whatsapp/entity/Chat.class
+com/whatsapp/repository/GroupRepository.class
