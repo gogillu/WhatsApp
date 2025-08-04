@@ -17,6 +17,9 @@ public class UserDto {
     public UserDto() {}
     
     public UserDto(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("User cannot be null");
+        }
         this.id = user.getId();
         this.email = user.getEmail();
         this.phoneNumber = user.getPhoneNumber();

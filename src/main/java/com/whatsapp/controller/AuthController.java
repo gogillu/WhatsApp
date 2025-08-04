@@ -41,10 +41,17 @@ public class AuthController {
             );
             
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            String jwt = jwtUtils.generateJwtToken((UserPrincipal) authentication.getPrincipal());
             
             UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
             User user = userService.findById(userPrincipal.getId()).orElse(null);
+            
+            if (user == null) {
+                Map<String, String> error = new HashMap<>();
+                error.put("error", "User not found after authentication");
+                return ResponseEntity.badRequest().body(error);
+            }
+            
+            String jwt = jwtUtils.generateJwtToken(userPrincipal);
             
             Map<String, Object> response = new HashMap<>();
             response.put("token", jwt);
