@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - WhatsApp Clone</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background-color: #25D366;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 300px;
+            background-color: white;
+            border-right: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        .chat-item {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+        }
+        .chat-item:hover {
+            background-color: #f8f9fa;
+        }
+        .main-chat {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #e5ddd5;
+        }
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+        .message.sent {
+            background-color: #dcf8c6;
+            margin-left: auto;
+            text-align: right;
+        }
+        .message.received {
+            background-color: white;
+        }
+        .message-input {
+            display: flex;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-top: 1px solid #ddd;
+        }
+        .message-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+        .message-input button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        .user-info {
+            font-size: 14px;
+        }
+        .logout-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .contacts-section {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .add-contact-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h2>WhatsApp Clone</h2>
+            <div class="user-info" id="userInfo">Welcome!</div>
+        </div>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+    
+    <div class="chat-container">
+        <div class="sidebar">
+            <div class="contacts-section">
+                <button class="add-contact-btn" onclick="addContact()">Add Contact</button>
+            </div>
+            <div class="chat-list" id="chatList">
+                <div class="chat-item">
+                    <strong>General Chat</strong><br>
+                    <small>Welcome to WhatsApp Clone!</small>
+                </div>
+                <!-- Chats will be loaded here -->
+            </div>
+        </div>
+        
+        <div class="main-chat">
+            <div class="messages-container" id="messagesContainer">
+                <div class="message received">
+                    <strong>System:</strong> Welcome to WhatsApp Clone! Start chatting with your contacts.
+                    <br><small>Just now</small>
+                </div>
+            </div>
+            
+            <div class="message-input">
+                <input type="text" id="messageInput" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Check if user is logged in
+        const token = localStorage.getItem('token');
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        
+        if (!token) {
+            window.location.href = '/login';
+        } else {
+            document.getElementById('userInfo').innerText = `Welcome, ${user.fullName || user.email || 'User'}!`;
+        }
+        
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '/';
+        }
+        
+        function addContact() {
+            const email = prompt('Enter contact email:');
+            if (email) {
+                // API call to add contact
+                fetch('/api/users/add-contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify({ contactEmail: email })
+                }).then(response => {
+                    if (response.ok) {
+                        alert('Contact added successfully!');
+                        loadChats();
+                    } else {
+                        alert('Failed to add contact');
+                    }
+                }).catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        }
+        
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value.trim();
+            
+            if (message) {
+                // Add message to UI immediately
+                addMessageToUI(message, true);
+                messageInput.value = '';
+                
+                // API call to send message
+                fetch('/api/messages/send', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify({ 
+                        content: message,
+                        receiverId: 1 // Default for demo
+                    })
+                }).catch(error => {
+                    console.error('Error sending message:', error);
+                });
+            }
+        }
+        
+        function addMessageToUI(message, isSent) {
+            const messagesContainer = document.getElementById('messagesContainer');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isSent ? 'sent' : 'received'}`;
+            messageDiv.innerHTML = `
+                ${message}
+                <br><small>${new Date().toLocaleTimeString()}</small>
+            `;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+        
+        function loadChats() {
+            fetch('/api/chats', {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            }).then(response => response.json())
+            .then(chats => {
+                const chatList = document.getElementById('chatList');
+                chatList.innerHTML = chats.map(chat => `
+                    <div class="chat-item" onclick="selectChat(${chat.id})">
+                        <strong>${chat.name}</strong><br>
+                        <small>${chat.lastMessage || 'No messages yet'}</small>
+                    </div>
+                `).join('');
+            }).catch(error => {
+                console.error('Error loading chats:', error);
+            });
+        }
+        
+        function selectChat(chatId) {
+            // Load messages for selected chat
+            console.log('Selected chat:', chatId);
+        }
+        
+        // Load chats on page load
+        loadChats();
+    </script>
+</body>
+</html>
