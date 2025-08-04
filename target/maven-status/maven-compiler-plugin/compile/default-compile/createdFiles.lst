@@ -16,6 +16,7 @@ com/whatsapp/entity/Chat.class
 com/whatsapp/repository/GroupRepository.class
 com/whatsapp/config/WebSocketConfig.class
 com/whatsapp/controller/UserController.class
+com/whatsapp/controller/WebController.class
 com/whatsapp/controller/WebSocketController.class
 com/whatsapp/service/FileService.class
 com/whatsapp/dto/UserRegistrationDto.class

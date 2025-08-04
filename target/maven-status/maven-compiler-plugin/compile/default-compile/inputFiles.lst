@@ -16,6 +16,7 @@
 /home/runner/work/WhatsApp/WhatsApp/src/main/java/com/whatsapp/dto/UserRegistrationDto.java
 /home/runner/work/WhatsApp/WhatsApp/src/main/java/com/whatsapp/config/WebSecurityConfig.java
 /home/runner/work/WhatsApp/WhatsApp/src/main/java/com/whatsapp/controller/GroupController.java
+/home/runner/work/WhatsApp/WhatsApp/src/main/java/com/whatsapp/controller/WebController.java
 /home/runner/work/WhatsApp/WhatsApp/src/main/java/com/whatsapp/repository/UserRepository.java
 /home/runner/work/WhatsApp/WhatsApp/src/main/java/com/whatsapp/config/JwtUtils.java
 /home/runner/work/WhatsApp/WhatsApp/src/main/java/com/whatsapp/dto/MessageDto.java

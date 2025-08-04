@@ -66,6 +66,8 @@ public class WebSecurityConfig {
                     .requestMatchers("/h2-console/**").permitAll()
                     .requestMatchers("/ws/**").permitAll()
                     .requestMatchers("/api/files/download/**").permitAll()
+                    .requestMatchers("/", "/login", "/register", "/chat").permitAll()
+                    .requestMatchers("/css/**", "/js/**", "/images/**", "/static/**").permitAll()
                     .anyRequest().authenticated()
             );
         
