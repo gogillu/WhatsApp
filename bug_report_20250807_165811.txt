@@ -1,0 +1,60 @@
+
+WEB APPLICATION BUG TESTING REPORT
+==================================================
+Target URL: http://localhost:8088
+Test Date: 2025-08-07 16:58:11
+Total Bugs Found: 38
+
+SEVERITY BREAKDOWN:
+--------------------
+High: 9
+Medium: 29
+
+CATEGORY BREAKDOWN:
+--------------------
+Security: 28
+Validation: 1
+Accessibility: 9
+
+DETAILED BUG REPORT:
+--------------------
+| #   | Category        | Severity   | Priority   | Title                                    | Description                                                  | Location                       | 
+|-----|-----------------|------------|------------|------------------------------------------|--------------------------------------------------------------|--------------------------------|
+| 1   | Security        | High       | High       | Form 1: Password via GET                 | Password field in form using GET method (security risk)      | Form #1                        |
+| 2   | Security        | High       | High       | Form 2: Missing CSRF Protection          | POST form lacks CSRF token protection                        | Form #2                        |
+| 3   | Security        | High       | High       | Form 4: Missing CSRF Protection          | POST form lacks CSRF token protection                        | Form #4                        |
+| 4   | Security        | High       | High       | API Missing Authentication               | API /api/data allows POST without authentication             | http://localhost:8088/api/data |
+| 5   | Security        | High       | High       | API Missing Authentication               | API /api/users allows POST without authentication            | http://localhost:8088/api/u... |
+| 6   | Security        | High       | High       | API Missing Authentication               | API /submit allows POST without authentication               | http://localhost:8088/submit   |
+| 7   | Security        | High       | High       | API Missing Authentication               | API /transfer allows POST without authentication             | http://localhost:8088/transfer |
+| 8   | Security        | High       | High       | API Missing Authentication               | API /search allows POST without authentication               | http://localhost:8088/search   |
+| 9   | Security        | High       | High       | API Missing Authentication               | API /contact allows POST without authentication              | http://localhost:8088/contact  |
+| 10  | Security        | Medium     | Medium     | Form 1: Password Autocomplete            | Password field allows autocomplete (potential security risk) | Form #1                        |
+| 11  | Validation      | Medium     | Medium     | Form 2: Accepts Empty Required Fields    | Form accepts submission despite required fields being empty  | http://localhost:8088/transfer |
+| 12  | Security        | Medium     | Medium     | API Information Disclosure               | API /api/data exposes verbose error information              | http://localhost:8088/api/data |
+| 13  | Security        | Medium     | Medium     | API Information Disclosure               | API /api/data exposes verbose error information              | http://localhost:8088/api/data |
+| 14  | Security        | Medium     | Medium     | API Information Disclosure               | API /api/data exposes verbose error information              | http://localhost:8088/api/data |
+| 15  | Security        | Medium     | Medium     | API Information Disclosure               | API /api/users exposes verbose error information             | http://localhost:8088/api/u... |
+| 16  | Security        | Medium     | Medium     | API Information Disclosure               | API /api/users exposes verbose error information             | http://localhost:8088/api/u... |
+| 17  | Security        | Medium     | Medium     | API Information Disclosure               | API /api/users exposes verbose error information             | http://localhost:8088/api/u... |
+| 18  | Security        | Medium     | Medium     | API Information Disclosure               | API /submit exposes verbose error information                | http://localhost:8088/submit   |
+| 19  | Security        | Medium     | Medium     | API Information Disclosure               | API /submit exposes verbose error information                | http://localhost:8088/submit   |
+| 20  | Security        | Medium     | Medium     | API Information Disclosure               | API /submit exposes verbose error information                | http://localhost:8088/submit   |
+| 21  | Security        | Medium     | Medium     | API Information Disclosure               | API /transfer exposes verbose error information              | http://localhost:8088/transfer |
+| 22  | Security        | Medium     | Medium     | API Information Disclosure               | API /transfer exposes verbose error information              | http://localhost:8088/transfer |
+| 23  | Security        | Medium     | Medium     | API Information Disclosure               | API /transfer exposes verbose error information              | http://localhost:8088/transfer |
+| 24  | Security        | Medium     | Medium     | API Information Disclosure               | API /search exposes verbose error information                | http://localhost:8088/search   |
+| 25  | Security        | Medium     | Medium     | API Information Disclosure               | API /search exposes verbose error information                | http://localhost:8088/search   |
+| 26  | Security        | Medium     | Medium     | API Information Disclosure               | API /search exposes verbose error information                | http://localhost:8088/search   |
+| 27  | Security        | Medium     | Medium     | API Information Disclosure               | API /contact exposes verbose error information               | http://localhost:8088/contact  |
+| 28  | Security        | Medium     | Medium     | API Information Disclosure               | API /contact exposes verbose error information               | http://localhost:8088/contact  |
+| 29  | Security        | Medium     | Medium     | API Information Disclosure               | API /contact exposes verbose error information               | http://localhost:8088/contact  |
+| 30  | Accessibility   | Medium     | Low        | Missing Alt Text                         | Image lacks alt attribute for screen readers                 | logo.png                       |
+| 31  | Accessibility   | Medium     | Low        | Missing Alt Text                         | Image lacks alt attribute for screen readers                 | banner.jpg                     |
+| 32  | Accessibility   | Medium     | Low        | Missing Form Label                       | Input field 'username' lacks associated label                | Input: username                |
+| 33  | Accessibility   | Medium     | Low        | Missing Form Label                       | Input field 'password' lacks associated label                | Input: password                |
+| 34  | Accessibility   | Medium     | Low        | Missing Form Label                       | Input field 'amount' lacks associated label                  | Input: amount                  |
+| 35  | Accessibility   | Medium     | Low        | Missing Form Label                       | Input field 'account' lacks associated label                 | Input: account                 |
+| 36  | Accessibility   | Medium     | Low        | Missing Form Label                       | Input field 'query' lacks associated label                   | Input: query                   |
+| 37  | Accessibility   | Medium     | Low        | Missing Form Label                       | Input field 'name' lacks associated label                    | Input: name                    |
+| 38  | Accessibility   | Medium     | Low        | Missing Form Label                       | Input field 'email' lacks associated label                   | Input: email                   |
